@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import pruebaSwing.dao.UserDao;
@@ -53,6 +54,8 @@ public class UsersAdmin extends JFrame {
 				User newUser = new User(userNameField.getText(), realNameField.getText());
 				users.add(newUser);
 				fillTable();
+				
+				System.out.println(table.getSelectedRow());
 //				JOptionPane.showMessageDialog(null, "Hubo una accion en el boton.");			
 			}
 		});
@@ -62,21 +65,22 @@ public class UsersAdmin extends JFrame {
 		newUserPanel.add(realNameLabel);
 		newUserPanel.add(realNameField);
 		newUserPanel.add(savebtn);
-		getRootPane().setDefaultButton(savebtn);//agrega el boton como "enter por defecto" para el Jframe. Al presionar la tecla se invoca al actionPermormed del Jbutton
-		
-		
+		getRootPane().setDefaultButton(savebtn);//agrega el boton como "enter por defecto" para el Jframe. Al presionar la tecla se invoca al actionPermormed del Jbutton		
 		
 	}
 	
 	public void constructCenterPanel(){
 		usersPanel = new JScrollPane();
-		model = new DefaultTableModel(){
+		model = new DefaultTableModel()
+			{
 			@Override
 			public boolean isCellEditable(int fila, int columna){
 				return false;
 			}
 		};
 		table = new JTable(model);
+//		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
+//		table.getSelectionModel().addListSelectionListener(x);
 		model.addColumn("Nombre usuario");
 		model.addColumn("Nombre real");
 		this.fillTable();
