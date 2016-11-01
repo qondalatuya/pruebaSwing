@@ -15,20 +15,32 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
-import pruebaSwing.dao.UserDao;
+import pruebaSwing.dao.VirtualUserDao;
 import pruebaSwing.model.User;
 
 public class UsersAdmin extends JFrame {
 	JTable table;
 	DefaultTableModel model;
-	ArrayList<User> users = new UserDao().getAll();
+	ArrayList<User> users = new VirtualUserDao().getAll();
 	JPanel newUserPanel;
 	JScrollPane usersPanel;
 	JButton savebtn;
 	JLabel userNameLabel,realNameLabel;
 	JTextField userNameField,realNameField;
+	
+	public static void main(String[] args){
+		SwingUtilities.invokeLater(new Runnable() {			
+			@Override
+			public void run() {
+				UsersAdmin window = new UsersAdmin();
+				window.setVisible(true);				
+			}
+		});
+	}
 	
 	public UsersAdmin(){
 		this.constructLeftPanel();
@@ -47,16 +59,13 @@ public class UsersAdmin extends JFrame {
 		realNameField.setPreferredSize(new Dimension(120, 24));
 		
 		savebtn = new JButton("Guardar");
-		savebtn.addActionListener( new ActionListener() {
-			
+		savebtn.addActionListener( new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				User newUser = new User(userNameField.getText(), realNameField.getText());
 				users.add(newUser);
-				fillTable();
 				
-				System.out.println(table.getSelectedRow());
-//				JOptionPane.showMessageDialog(null, "Hubo una accion en el boton.");			
+				fillTable();
 			}
 		});
 		
@@ -79,8 +88,7 @@ public class UsersAdmin extends JFrame {
 			}
 		};
 		table = new JTable(model);
-//		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
-//		table.getSelectionModel().addListSelectionListener(x);
+		table.setRowSorter( new TableRowSorter<DefaultTableModel>(model));//Le decimos que la tabla se pueda ordenar (Haciendo clic en las columnas)
 		model.addColumn("Nombre usuario");
 		model.addColumn("Nombre real");
 		this.fillTable();
@@ -89,9 +97,12 @@ public class UsersAdmin extends JFrame {
 	
 	public void init(){
 		this.setLayout(new BorderLayout());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
 		this.setTitle("Administración de Usuarios");
 		this.add(usersPanel,BorderLayout.CENTER);
 		this.add(newUserPanel, BorderLayout.WEST);
+		this.pack();
+        this.setVisible(true);
 		
 	
 	}
@@ -104,6 +115,7 @@ public class UsersAdmin extends JFrame {
 				model.addRow(o);
 				usersPanel.setViewportView(table);
 			}
+			table.updateUI();
 		}
 		catch (Exception e) {
 			

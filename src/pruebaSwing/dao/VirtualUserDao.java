@@ -6,10 +6,11 @@ import pruebaSwing.model.User;
 
 //angau
 
-public class UserDao {
-
+public class VirtualUserDao {
+	ArrayList<User> lista = new ArrayList<User>();
+	
 	public ArrayList<User> getAll(){
-		ArrayList<User> lista = new ArrayList<User>();
+		
 		
 		lista.add(new User("vallejosl", "Vallejos Lucas"));
 		lista.add(new User("poncemi", "Ponce Milton"));

@@ -15,9 +15,9 @@ public class PruebaTable {
 //	            frame.getContentPane().add(gui);
 //	            frame.pack();
 //	            frame.setVisible(true);
-	            gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	            gui.pack();
-	            gui.setVisible(true);
+//	            gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	            gui.pack();
+//	            gui.setVisible(true);
 	        }
 	    });
 
