@@ -66,7 +66,6 @@ public class UsersAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				User newUser = new User(userNameField.getText(), realNameField.getText());
 				dao.save(newUser);
-				
 				fillTable();
 			}
 		});
