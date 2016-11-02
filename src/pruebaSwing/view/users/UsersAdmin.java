@@ -1,20 +1,18 @@
-package pruebaSwing;
+package pruebaSwing.view.users;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,14 +21,14 @@ import pruebaSwing.dao.VirtualUserDao;
 import pruebaSwing.model.User;
 
 public class UsersAdmin extends JFrame {
+	private static final long serialVersionUID = 6152605591867146795L;
+	VirtualUserDao dao = new VirtualUserDao();
 	JTable table;
 	DefaultTableModel model;
-	ArrayList<User> users = new VirtualUserDao().getAll();
-	JPanel newUserPanel;
+	List<User> users;
+	JPanel newUserPanel,buttonsPanel;
 	JScrollPane usersPanel;
-	JButton savebtn;
-	JLabel userNameLabel,realNameLabel;
-	JTextField userNameField,realNameField;
+
 	
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable() {			
@@ -45,12 +43,15 @@ public class UsersAdmin extends JFrame {
 	public UsersAdmin(){
 		this.constructLeftPanel();
 		this.constructCenterPanel();
+		this.constructSouthPanel();
 		this.init();
 	}
 	
-	public void constructLeftPanel(){
+	protected void constructLeftPanel(){
 		newUserPanel = new JPanel();
 		
+		JLabel userNameLabel,realNameLabel;
+		JTextField userNameField,realNameField;
 		userNameLabel = new JLabel("Usuario");
 		realNameLabel = new JLabel("Nombre");
 		userNameField = new JTextField();
@@ -58,12 +59,13 @@ public class UsersAdmin extends JFrame {
 		userNameField.setPreferredSize(new Dimension(120, 24));
 		realNameField.setPreferredSize(new Dimension(120, 24));
 		
+		JButton savebtn;
 		savebtn = new JButton("Guardar");
 		savebtn.addActionListener( new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				User newUser = new User(userNameField.getText(), realNameField.getText());
-				users.add(newUser);
+				dao.save(newUser);
 				
 				fillTable();
 			}
@@ -78,10 +80,11 @@ public class UsersAdmin extends JFrame {
 		
 	}
 	
-	public void constructCenterPanel(){
+	protected void constructCenterPanel(){
 		usersPanel = new JScrollPane();
 		model = new DefaultTableModel()
 			{
+			private static final long serialVersionUID = 279157351021069600L;
 			@Override
 			public boolean isCellEditable(int fila, int columna){
 				return false;
@@ -95,21 +98,41 @@ public class UsersAdmin extends JFrame {
 		
 	}
 	
-	public void init(){
+	protected void constructSouthPanel(){
+		buttonsPanel = new JPanel();
+		JButton editbtn= new JButton("Editar");
+		editbtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow()!=-1){
+					model.getValueAt(table.getSelectedRow(), 1);
+					UserEdit userEdit = new UserEdit(users.get(table.getSelectedRow()));
+					userEdit.setVisible(true);
+					fillTable();
+				}
+				
+			}
+		});
+		
+		buttonsPanel.add(editbtn);
+	}
+	
+	protected void init(){
 		this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
 		this.setTitle("Administración de Usuarios");
 		this.add(usersPanel,BorderLayout.CENTER);
 		this.add(newUserPanel, BorderLayout.WEST);
+		this.add(buttonsPanel,BorderLayout.SOUTH);
 		this.pack();
-        this.setVisible(true);
 		
 	
 	}
 	
-	public void fillTable(){
+	protected void fillTable(){
 		try{					
-			model.setRowCount(0);			
+			model.setRowCount(0);
+			users = dao.getAll(); 
 			for (User user:users){
 				Object[] o = {user.getUserName(),user.getRealName()}; 
 				model.addRow(o);
