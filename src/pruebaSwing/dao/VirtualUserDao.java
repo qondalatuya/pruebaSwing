@@ -25,6 +25,11 @@ public class VirtualUserDao {
 		
 	}
 	
+	//este metodo es una mentira
+	public void delete(User u){
+		lista.remove(u);
+	}
+	
 	private void init(){
 		lista.add(new User("vallejosl", "Vallejos Lucas"));
 		lista.add(new User("poncemi", "Ponce Milton"));

@@ -3,6 +3,7 @@ package pruebaSwing.model;
 public class User {
 	private String userName;
 	private String realName;
+	private Department department;
 	
 	public User(String userName, String realName) {
 		super();
@@ -24,6 +25,12 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userName=" + userName + ", realName=" + realName + "]";
+	}
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 	
 	

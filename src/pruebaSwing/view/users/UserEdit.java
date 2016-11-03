@@ -29,6 +29,7 @@ public class UserEdit extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				user.setRealName(userEditPanel.getRealName());
 				user.setUserName(userEditPanel.getUserName());
+				user.setDepartment(userEditPanel.getDepartment());
 				dispose();
 			}			
 		});

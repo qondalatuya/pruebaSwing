@@ -57,6 +57,7 @@ public class UsersAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				User newUser = new User(userEditPanel.getUserName(), userEditPanel.getRealName());
+				newUser.setDepartment(userEditPanel.getDepartment());
 				dao.save(newUser);
 				fillTable();
 			}
@@ -70,7 +71,8 @@ public class UsersAdmin extends JFrame {
 	
 	protected void constructCenterPanel(){
 		usersPanel = new JPanel();		
-		usersPanel.setLayout(new BoxLayout(usersPanel,BoxLayout.Y_AXIS));
+		usersPanel.setLayout(new BorderLayout());
+//		usersPanel.setLayout(new BoxLayout(usersPanel,BoxLayout.Y_AXIS));
 		
 		JScrollPane tablePanel = new JScrollPane();
 		model = new DefaultTableModel()
@@ -85,6 +87,7 @@ public class UsersAdmin extends JFrame {
 		table.setRowSorter( new TableRowSorter<DefaultTableModel>(model));//Le decimos que la tabla se pueda ordenar (Haciendo clic en las columnas).
 		model.addColumn("Nombre usuario");
 		model.addColumn("Nombre real");
+		model.addColumn("Departamento");
 		
 		JButton editbtn= new JButton("Editar");
 		editbtn.addActionListener(new ActionListener() {
@@ -98,10 +101,28 @@ public class UsersAdmin extends JFrame {
 				}	
 			}
 		});
+		JButton rembtn = new JButton("Eliminar");
+		rembtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow()!=-1){
+					dao.delete(users.get(table.getSelectedRow()));
+					fillTable();
+				}
+				
+			}
+		});
+		
 		tablePanel.setViewportView(table);
 		this.fillTable();
-		usersPanel.add(tablePanel);
-		usersPanel.add(editbtn);
+		
+		usersPanel.add(tablePanel,BorderLayout.CENTER);
+		
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.add(rembtn);
+		buttonsPanel.add(editbtn);
+		usersPanel.add(buttonsPanel,BorderLayout.SOUTH);
+		
 	}
 	
 	
@@ -120,7 +141,7 @@ public class UsersAdmin extends JFrame {
 			model.setRowCount(0);
 			users = dao.getAll(); 
 			for (User user:users){
-				Object[] o = {user.getUserName(),user.getRealName()}; 
+				Object[] o = {user.getUserName(),user.getRealName(),user.getDepartment()}; 
 				model.addRow(o);
 			}
 			table.updateUI();
