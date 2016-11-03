@@ -78,11 +78,11 @@ public class UsersAdmin extends JFrame {
 			private static final long serialVersionUID = 279157351021069600L;
 			@Override
 			public boolean isCellEditable(int fila, int columna){
-				return false;
-			}
+				return false;//pareceria que se puede definir algun tipo de logica que returne V/F según si la celda de la tabla es editable o no.
+			}// en este caso returna falso, para cualquier combinacion de fila/columna
 		};
 		table = new JTable(model);
-		table.setRowSorter( new TableRowSorter<DefaultTableModel>(model));//Le decimos que la tabla se pueda ordenar (Haciendo clic en las columnas)
+		table.setRowSorter( new TableRowSorter<DefaultTableModel>(model));//Le decimos que la tabla se pueda ordenar (Haciendo clic en las columnas).
 		model.addColumn("Nombre usuario");
 		model.addColumn("Nombre real");
 		
@@ -122,7 +122,6 @@ public class UsersAdmin extends JFrame {
 			for (User user:users){
 				Object[] o = {user.getUserName(),user.getRealName()}; 
 				model.addRow(o);
-//				usersPanel.setViewportView(table);
 			}
 			table.updateUI();
 		}
