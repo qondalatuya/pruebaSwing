@@ -19,6 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 import pruebaSwing.dao.VirtualDepartmentDao;
 import pruebaSwing.dao.VirtualUserDao;
+import pruebaSwing.model.Department;
 import pruebaSwing.model.User;
 
 public class UsersAdmin extends JFrame {
@@ -28,6 +29,7 @@ public class UsersAdmin extends JFrame {
 	JTable table;
 	DefaultTableModel model;
 	List<User> users;
+	List<Department> deps;
 	JPanel newUserPanel,buttonsPanel;
 	JScrollPane usersPanel;
 
@@ -50,6 +52,7 @@ public class UsersAdmin extends JFrame {
 	}
 	
 	protected void constructLeftPanel(){
+		
 		newUserPanel = new JPanel();
 		
 		JLabel userNameLabel,realNameLabel;
