@@ -1,14 +1,15 @@
 package pruebaSwing.view.users;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pruebaSwing.model.User;
@@ -17,6 +18,7 @@ public class UserEdit extends JDialog {
 	private static final long serialVersionUID = 4852407853975781816L;
 	private JLabel userNameLabel,realNameLabel;
 	private JTextField userNameField,realNameField;
+	private JPanel panel = new JPanel();
 	
 	public UserEdit(User user){
 		userNameLabel = new JLabel("Nombre Usuario");
@@ -28,8 +30,7 @@ public class UserEdit extends JDialog {
 		realNameField.setPreferredSize(new Dimension(120, 24));
 		userNameLabel.setPreferredSize(new Dimension(120, 24));
 		realNameLabel.setPreferredSize(new Dimension(120, 24));		
-		
-		
+				
 		JButton savebtn = new JButton("Guardar");
 		savebtn.addActionListener(new ActionListener() {
 			@Override
@@ -40,26 +41,33 @@ public class UserEdit extends JDialog {
 			}			
 		});
 		
-		GroupLayout layout = new GroupLayout(this.getContentPane());
-		this.setLayout(layout);
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		this.add(panel);		
+	
+		GroupLayout layout = new GroupLayout(panel);
+		panel.setLayout(layout);
 		layout.setAutoCreateGaps(true);
 		
 		layout.setHorizontalGroup(
 				layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(userNameLabel)
-						.addComponent(realNameLabel)));
+						.addComponent(realNameLabel))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(userNameField)
+						.addComponent(realNameField)
+						.addComponent(savebtn))
+				);
+				
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
-				.addComponent(userNameLabel)
-				.addComponent(realNameLabel));
-		
-		//TODO  faltan agregar componentes
-//		this.add(userNameLabel);
-//		this.add(userNameField);
-//		this.add(realNameLabel);
-//		this.add(realNameField);
-//		this.add(savebtn);
+					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+							.addComponent(userNameLabel)
+							.addComponent(userNameField))
+					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+							.addComponent(realNameLabel)
+							.addComponent(realNameField))
+					.addComponent(savebtn));
 		
 		
 		this.setModal(true);

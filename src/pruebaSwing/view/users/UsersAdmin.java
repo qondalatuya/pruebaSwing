@@ -17,12 +17,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import pruebaSwing.dao.VirtualDepartmentDao;
 import pruebaSwing.dao.VirtualUserDao;
 import pruebaSwing.model.User;
 
 public class UsersAdmin extends JFrame {
 	private static final long serialVersionUID = 6152605591867146795L;
 	VirtualUserDao dao = new VirtualUserDao();
+	VirtualDepartmentDao daoDep = new VirtualDepartmentDao();
 	JTable table;
 	DefaultTableModel model;
 	List<User> users;
