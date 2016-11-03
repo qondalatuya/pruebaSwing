@@ -1,18 +1,16 @@
 package pruebaSwing.view.users;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -22,17 +20,15 @@ import pruebaSwing.dao.VirtualUserDao;
 import pruebaSwing.model.Department;
 import pruebaSwing.model.User;
 
-public class UsersAdmin extends JFrame {
-	private static final long serialVersionUID = 6152605591867146795L;
+public class UsersAdmin extends JFrame {	
+	private static final long serialVersionUID = -8104795210887305316L;
 	VirtualUserDao dao = new VirtualUserDao();
 	VirtualDepartmentDao daoDep = new VirtualDepartmentDao();
 	JTable table;
 	DefaultTableModel model;
 	List<User> users;
 	List<Department> deps;
-	JPanel newUserPanel,buttonsPanel;
-	JScrollPane usersPanel;
-
+	JPanel newUserPanel,usersPanel;
 	
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable() {			
@@ -47,45 +43,36 @@ public class UsersAdmin extends JFrame {
 	public UsersAdmin(){
 		this.constructLeftPanel();
 		this.constructCenterPanel();
-		this.constructSouthPanel();
 		this.init();
 	}
 	
 	protected void constructLeftPanel(){
-		
-		newUserPanel = new JPanel();
-		
-		JLabel userNameLabel,realNameLabel;
-		JTextField userNameField,realNameField;
-		userNameLabel = new JLabel("Usuario");
-		realNameLabel = new JLabel("Nombre");
-		userNameField = new JTextField();
-		realNameField = new JTextField();
-		userNameField.setPreferredSize(new Dimension(120, 24));
-		realNameField.setPreferredSize(new Dimension(120, 24));
+		newUserPanel= new JPanel();
+		newUserPanel.setLayout(new BoxLayout(newUserPanel, BoxLayout.Y_AXIS));
+		UserEditPanel userEditPanel = new UserEditPanel();
 		
 		JButton savebtn;
 		savebtn = new JButton("Guardar");
 		savebtn.addActionListener( new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				User newUser = new User(userNameField.getText(), realNameField.getText());
+				User newUser = new User(userEditPanel.getUserName(), userEditPanel.getRealName());
 				dao.save(newUser);
 				fillTable();
 			}
 		});
 		
-		newUserPanel.add(userNameLabel);
-		newUserPanel.add(userNameField);
-		newUserPanel.add(realNameLabel);
-		newUserPanel.add(realNameField);
+		newUserPanel.add(userEditPanel);
 		newUserPanel.add(savebtn);
 		getRootPane().setDefaultButton(savebtn);//agrega el boton como "enter por defecto" para el Jframe. Al presionar la tecla se invoca al actionPermormed del Jbutton		
 		
 	}
 	
 	protected void constructCenterPanel(){
-		usersPanel = new JScrollPane();
+		usersPanel = new JPanel();		
+		usersPanel.setLayout(new BoxLayout(usersPanel,BoxLayout.Y_AXIS));
+		
+		JScrollPane tablePanel = new JScrollPane();
 		model = new DefaultTableModel()
 			{
 			private static final long serialVersionUID = 279157351021069600L;
@@ -98,12 +85,7 @@ public class UsersAdmin extends JFrame {
 		table.setRowSorter( new TableRowSorter<DefaultTableModel>(model));//Le decimos que la tabla se pueda ordenar (Haciendo clic en las columnas)
 		model.addColumn("Nombre usuario");
 		model.addColumn("Nombre real");
-		this.fillTable();
 		
-	}
-	
-	protected void constructSouthPanel(){
-		buttonsPanel = new JPanel();
 		JButton editbtn= new JButton("Editar");
 		editbtn.addActionListener(new ActionListener() {
 			@Override
@@ -113,13 +95,15 @@ public class UsersAdmin extends JFrame {
 					UserEdit userEdit = new UserEdit(users.get(table.getSelectedRow()));
 					userEdit.setVisible(true);
 					fillTable();
-				}
-				
+				}	
 			}
 		});
-		
-		buttonsPanel.add(editbtn);
+		tablePanel.setViewportView(table);
+		this.fillTable();
+		usersPanel.add(tablePanel);
+		usersPanel.add(editbtn);
 	}
+	
 	
 	protected void init(){
 		this.setLayout(new BorderLayout());
@@ -127,9 +111,7 @@ public class UsersAdmin extends JFrame {
 		this.setTitle("Administración de Usuarios");
 		this.add(usersPanel,BorderLayout.CENTER);
 		this.add(newUserPanel, BorderLayout.WEST);
-		this.add(buttonsPanel,BorderLayout.SOUTH);
-		this.pack();
-		
+		this.pack();		
 	
 	}
 	
@@ -140,7 +122,7 @@ public class UsersAdmin extends JFrame {
 			for (User user:users){
 				Object[] o = {user.getUserName(),user.getRealName()}; 
 				model.addRow(o);
-				usersPanel.setViewportView(table);
+//				usersPanel.setViewportView(table);
 			}
 			table.updateUI();
 		}
