@@ -7,11 +7,9 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -20,7 +18,7 @@ import pruebaSwing.dao.VirtualUserDao;
 import pruebaSwing.model.Department;
 import pruebaSwing.model.User;
 
-public class UsersAdmin extends JFrame {	
+public class UsersAdmin extends JPanel {	
 	private static final long serialVersionUID = -8104795210887305316L;
 	VirtualUserDao dao = new VirtualUserDao();
 	VirtualDepartmentDao daoDep = new VirtualDepartmentDao();
@@ -30,15 +28,15 @@ public class UsersAdmin extends JFrame {
 	List<Department> deps;
 	JPanel newUserPanel,usersPanel;
 	
-	public static void main(String[] args){
-		SwingUtilities.invokeLater(new Runnable() {			
-			@Override
-			public void run() {
-				UsersAdmin window = new UsersAdmin();
-				window.setVisible(true);				
-			}
-		});
-	}
+//	public static void main(String[] args){
+//		SwingUtilities.invokeLater(new Runnable() {			
+//			@Override
+//			public void run() {
+//				UsersAdmin window = new UsersAdmin();
+//				window.setVisible(true);				
+//			}
+//		});
+//	}
 	
 	public UsersAdmin(){
 		this.constructLeftPanel();
@@ -52,7 +50,7 @@ public class UsersAdmin extends JFrame {
 		UserEditPanel userEditPanel = new UserEditPanel();
 		
 		JButton savebtn;
-		savebtn = new JButton("Guardar");
+		savebtn = new JButton("Agregar Usuario");
 		savebtn.addActionListener( new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -65,14 +63,13 @@ public class UsersAdmin extends JFrame {
 		
 		newUserPanel.add(userEditPanel);
 		newUserPanel.add(savebtn);
-		getRootPane().setDefaultButton(savebtn);//agrega el boton como "enter por defecto" para el Jframe. Al presionar la tecla se invoca al actionPermormed del Jbutton		
+//				
 		
 	}
 	
 	protected void constructCenterPanel(){
 		usersPanel = new JPanel();		
 		usersPanel.setLayout(new BorderLayout());
-//		usersPanel.setLayout(new BoxLayout(usersPanel,BoxLayout.Y_AXIS));
 		
 		JScrollPane tablePanel = new JScrollPane();
 		model = new DefaultTableModel()
@@ -128,11 +125,8 @@ public class UsersAdmin extends JFrame {
 	
 	protected void init(){
 		this.setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-		this.setTitle("Administración de Usuarios");
 		this.add(usersPanel,BorderLayout.CENTER);
 		this.add(newUserPanel, BorderLayout.WEST);
-		this.pack();		
 	
 	}
 	
