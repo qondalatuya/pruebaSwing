@@ -1,4 +1,4 @@
-package pruebaSwing.view.users;
+package ingre.view.users;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -10,15 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import pruebaSwing.dao.VirtualDepartmentDao;
-import pruebaSwing.model.Department;
-import pruebaSwing.model.User;
-/*
- * Este panel contiene fields y labels para edicion de usario (posteriormente también lista desplegable con departamento)
- * No contiente botones de acciones. Dificulta mucho (a mi entender) el manejo de los eventos generados por los botones, 
- * los cuales deben generan cambios en listeners ubicados en otras clases.
- * Contiene geters para todas las inputs
- */
+import ingre.dao.VirtualDepartmentDao;
+import ingre.model.Department;
+import ingre.model.User;
 
 public class UserEditPanel extends JPanel {
 	private static final long serialVersionUID = 4882132895376327167L;
@@ -26,7 +20,7 @@ public class UserEditPanel extends JPanel {
 	private JTextField userNameField,realNameField;
 	private JComboBox<Department> depcombobox;
 	private List<Department> deps;
-	private VirtualDepartmentDao daoDep = new VirtualDepartmentDao();
+	private VirtualDepartmentDao daoDep = VirtualDepartmentDao.getInstance();
 	
 	public UserEditPanel(){
 		init();

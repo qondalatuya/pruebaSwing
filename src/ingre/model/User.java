@@ -1,9 +1,10 @@
-package pruebaSwing.model;
+package ingre.model;
 
 public class User {
 	private String userName;
 	private String realName;
 	private Department department;
+	private boolean isUserActive = true;
 	
 	public User(String userName, String realName) {
 		super();
@@ -31,6 +32,12 @@ public class User {
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	public boolean isUserActive() {
+		return isUserActive;
+	}
+	public void setUserActive(boolean isUserActive) {
+		this.isUserActive = isUserActive;
 	}
 	
 	

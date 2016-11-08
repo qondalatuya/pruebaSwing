@@ -1,7 +1,25 @@
-package pruebaSwing.model;
+package ingre.model;
 
 public class Department {
+	private int id;
 	private String name;
+	private User boss;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public User getBoss() {
+		return boss;
+	}
+
+	public void setBoss(User boss) {
+		this.boss = boss;
+	}
 
 	public Department(String name){
 		this.name=name;

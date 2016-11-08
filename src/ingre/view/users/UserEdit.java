@@ -1,4 +1,4 @@
-package pruebaSwing.view.users;
+package ingre.view.users;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import pruebaSwing.model.User;
+import ingre.model.User;
 
 /*
  * Dialogo para modificar el usuario cargado previamente

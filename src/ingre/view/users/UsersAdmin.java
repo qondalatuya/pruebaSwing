@@ -1,4 +1,4 @@
-package pruebaSwing.view.users;
+package ingre.view.users;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -13,15 +13,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import pruebaSwing.dao.VirtualDepartmentDao;
-import pruebaSwing.dao.VirtualUserDao;
-import pruebaSwing.model.Department;
-import pruebaSwing.model.User;
+import ingre.dao.VirtualDepartmentDao;
+import ingre.dao.VirtualUserDao;
+import ingre.model.Department;
+import ingre.model.User;
 
 public class UsersAdmin extends JPanel {	
 	private static final long serialVersionUID = -8104795210887305316L;
-	VirtualUserDao dao = new VirtualUserDao();
-	VirtualDepartmentDao daoDep = new VirtualDepartmentDao();
+	VirtualUserDao dao = VirtualUserDao.getInstance();
+	VirtualDepartmentDao daoDep = VirtualDepartmentDao.getInstance();
 	JTable table;
 	DefaultTableModel model;
 	List<User> users;

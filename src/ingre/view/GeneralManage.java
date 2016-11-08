@@ -1,10 +1,11 @@
-package pruebaSwing.view;
+package ingre.view;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import pruebaSwing.view.users.UsersAdmin;
+import ingre.view.deps.DepsManage;
+import ingre.view.users.UsersAdmin;
 
 public class GeneralManage extends JFrame {
 	private static final long serialVersionUID = 2403686788652812408L;
@@ -27,6 +28,7 @@ public class GeneralManage extends JFrame {
 		this.setTitle("Administración");
 		JTabbedPane tabbedpane = new JTabbedPane();
 		tabbedpane.addTab("Usuarios", new UsersAdmin());
+		tabbedpane.addTab("Departamentos",new DepsManage());
 		this.add(tabbedpane);
 		this.pack();
 	}
