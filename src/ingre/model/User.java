@@ -1,6 +1,6 @@
 package ingre.model;
 
-public class User {
+public class User{
 	private String userName;
 	private String realName;
 	private Department department;
@@ -39,6 +39,5 @@ public class User {
 	public void setUserActive(boolean isUserActive) {
 		this.isUserActive = isUserActive;
 	}
-	
 	
 }
