@@ -10,7 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ingre.dao.VirtualUserDao;
+import ingre.dao.UserDao;
+import ingre.model.Department;
 import ingre.model.User;
 
 public class DepEditPanel extends JPanel{
@@ -18,11 +19,16 @@ public class DepEditPanel extends JPanel{
 	private JLabel nameLabel,bossLabel;
 	private JTextField nameField;
 	private JComboBox<User> bossComboBox;
-	private VirtualUserDao daoUser = VirtualUserDao.getInstance();
+	private UserDao daoUser = UserDao.getInstance();
 	private List<User> users;  
 	
 	public DepEditPanel(){
 		init();
+	}
+	
+	public DepEditPanel(Department dep){
+		init();
+		nameField.setText(dep.getName());
 	}
 	
 	public void init(){

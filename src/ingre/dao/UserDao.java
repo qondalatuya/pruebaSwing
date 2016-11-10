@@ -4,14 +4,14 @@ import ingre.model.User;
 
 //angau
 
-public class VirtualUserDao extends VirtualDao<User> {
-	private static VirtualUserDao instance = new VirtualUserDao();
+public class UserDao extends Dao<User> {
+	private static UserDao instance = new UserDao();
 	
-	public static VirtualUserDao getInstance(){
+	public static UserDao getInstance(){
 		return instance;
 	}
 	
-	private VirtualUserDao() {
+	private UserDao() {
 		
 	}
 	

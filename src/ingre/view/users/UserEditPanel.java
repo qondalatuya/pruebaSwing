@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ingre.dao.VirtualDepartmentDao;
+import ingre.dao.DepartmentDao;
 import ingre.model.Department;
 import ingre.model.User;
 
@@ -20,7 +20,7 @@ public class UserEditPanel extends JPanel {
 	private JTextField userNameField,realNameField;
 	private JComboBox<Department> depcombobox;
 	private List<Department> deps;
-	private VirtualDepartmentDao daoDep = VirtualDepartmentDao.getInstance();
+	private DepartmentDao daoDep = DepartmentDao.getInstance();
 	
 	public UserEditPanel(){
 		init();

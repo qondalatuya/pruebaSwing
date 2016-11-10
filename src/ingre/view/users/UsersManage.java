@@ -13,32 +13,22 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import ingre.dao.VirtualDepartmentDao;
-import ingre.dao.VirtualUserDao;
+import ingre.dao.DepartmentDao;
+import ingre.dao.UserDao;
 import ingre.model.Department;
 import ingre.model.User;
 
-public class UsersAdmin extends JPanel {	
+public class UsersManage extends JPanel {	
 	private static final long serialVersionUID = -8104795210887305316L;
-	VirtualUserDao dao = VirtualUserDao.getInstance();
-	VirtualDepartmentDao daoDep = VirtualDepartmentDao.getInstance();
+	UserDao dao = UserDao.getInstance();
+	DepartmentDao daoDep = DepartmentDao.getInstance();
 	JTable table;
 	DefaultTableModel model;
 	List<User> users;
 	List<Department> deps;
 	JPanel newUserPanel,usersPanel;
 	
-//	public static void main(String[] args){
-//		SwingUtilities.invokeLater(new Runnable() {			
-//			@Override
-//			public void run() {
-//				UsersAdmin window = new UsersAdmin();
-//				window.setVisible(true);				
-//			}
-//		});
-//	}
-	
-	public UsersAdmin(){
+	public UsersManage(){
 		this.constructLeftPanel();
 		this.constructCenterPanel();
 		this.init();
@@ -91,7 +81,7 @@ public class UsersAdmin extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow()!=-1){
-					model.getValueAt(table.getSelectedRow(), 1);
+//					model.getValueAt(table.getSelectedRow(), 1);
 					UserEdit userEdit = new UserEdit(users.get(table.getSelectedRow()));
 					userEdit.setVisible(true);
 					fillTable();

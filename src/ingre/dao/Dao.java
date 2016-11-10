@@ -5,10 +5,10 @@ import java.util.List;
 
 //las clases que heredan de esta deben implementar el método getCurrentInstance() init() y declarar el atribuyo instance
 
-public class VirtualDao <T>{
+public class Dao <T>{
 	protected List<T> list;
 	
-	protected VirtualDao(){
+	protected Dao(){
 		list = new ArrayList<T>();
 		init();
 	}

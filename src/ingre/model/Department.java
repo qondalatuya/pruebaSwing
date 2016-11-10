@@ -5,6 +5,10 @@ public class Department {
 	private String name;
 	private User boss;
 
+	public Department(String name){
+		this.name=name;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -21,10 +25,6 @@ public class Department {
 		this.boss = boss;
 	}
 
-	public Department(String name){
-		this.name=name;
-	}
-	
 	public String getName() {
 		return name;
 	}

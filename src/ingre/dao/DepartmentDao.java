@@ -2,14 +2,14 @@ package ingre.dao;
 
 import ingre.model.Department;
 
-public class VirtualDepartmentDao extends VirtualDao<Department> {
-	private static VirtualDepartmentDao instance = new VirtualDepartmentDao();
+public class DepartmentDao extends Dao<Department> {
+	private static DepartmentDao instance = new DepartmentDao();
 	
-	public static VirtualDepartmentDao getInstance(){
+	public static DepartmentDao getInstance(){
 		return instance;
 	}
 	
-	private VirtualDepartmentDao(){
+	private DepartmentDao(){
 		
 	}
 	
